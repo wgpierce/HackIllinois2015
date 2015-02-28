@@ -1,0 +1,10 @@
+applications:
+- services:
+  - Concept Insights-t0
+  disk_quota: 1024M
+  host: hackillinois2015
+  name: HackIllinois2015
+  path: webStarterApp.war
+  domain: mybluemix.net
+  instances: 1
+  memory: 512M
