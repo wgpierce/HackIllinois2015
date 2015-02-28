@@ -1,0 +1,22 @@
+package com.ibm.cloudoe.samples;
+
+import java.io.*;
+public class ReadFileEx {
+    public static void main(String args[]) {
+        if (args.length != 1) {
+            System.out.println("Must specify file on the command line");
+            return;
+        }
+
+        try {
+            FileInputStream fStream = new FileInputStream(args[0]);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fStream));
+            while (in.ready()) {
+                System.out.println(in.readLine());
+            }
+            in.close();
+        } catch (IOException e) {
+            System.out.println("File input error");
+        }
+    }
+}

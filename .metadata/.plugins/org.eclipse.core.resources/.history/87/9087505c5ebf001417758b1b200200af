@@ -1,0 +1,22 @@
+import java.io.IOException;
+public class FileData {
+	public static void main(String[ ] args) throws IOException {
+		String inputData = "datafiles/inputdata.json";
+		try {
+			ReadFile file = new ReadFile(inputData);
+			String[] aryLines = file.OpenFile();
+			for (int i = 0; i < aryLines.length; i++ ) {
+			System.out.println( aryLines[ i ] ) ;
+			}
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		ReadFile file = new ReadFile(inputData);
+		String[] aryLines = file.OpenFile();
+		//System.out.print(aryLines[1]);
+		for (int i = 0; i < aryLines.length; i++ ) {
+			System.out.println( aryLines[ i ] ) ;
+			}
+	}
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servers>
+  <server auto-publish-setting="1" hostname="Cloud" id="IBM Bluemix" name="IBM Bluemix" org.cloudfoundry.ide.eclipse.org="wgpierce01@gmail.com" org.cloudfoundry.ide.eclipse.serverId="wgpierce01@gmail.com_wgpierce01@gmail.com_dev@https://api.ng.bluemix.net" org.cloudfoundry.ide.eclipse.space="dev" org.cloudfoundry.ide.eclipse.url="https://api.ng.bluemix.net" org.cloudfoundry.ide.eclipse.username="wgpierce01@gmail.com" runtime-id="IBM Bluemix Runtime" server-type="com.ibm.cftools.server" server-type-id="com.ibm.cftools.server" start-timeout="600" stop-timeout="60" timestamp="1">
+    <list key="modules" value0="HackIllinois2015::org.eclipse.jst.jee.server:HackIllinois2015::jst.web::3.0"/>
+  </server>
+</servers>
