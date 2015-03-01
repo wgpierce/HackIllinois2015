@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A9638011AA2DD1A008C3855 /* IBMBluemix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9638001AA2DD1A008C3855 /* IBMBluemix.framework */; };
 		4ABF43721AA17921009C94FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43711AA17921009C94FC /* AppDelegate.swift */; };
 		4ABF43771AA17921009C94FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF43751AA17921009C94FC /* Main.storyboard */; };
 		4ABF43791AA17921009C94FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF43781AA17921009C94FC /* Images.xcassets */; };
 		4ABF437C1AA17921009C94FC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ABF437A1AA17921009C94FC /* LaunchScreen.xib */; };
 		4ABF43881AA17921009C94FC /* YTGuideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43871AA17921009C94FC /* YTGuideTests.swift */; };
 		4ABF43921AA1796A009C94FC /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43911AA1796A009C94FC /* StartViewController.swift */; };
+		4ABF43C51AA1D884009C94FC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABF43C41AA1D884009C94FC /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A9638001AA2DD1A008C3855 /* IBMBluemix.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IBMBluemix.framework; sourceTree = "<group>"; };
 		4ABF436C1AA17921009C94FC /* YTGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ABF43701AA17921009C94FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ABF43711AA17921009C94FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		4ABF43861AA17921009C94FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4ABF43871AA17921009C94FC /* YTGuideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YTGuideTests.swift; sourceTree = "<group>"; };
 		4ABF43911AA1796A009C94FC /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		4ABF43C41AA1D884009C94FC /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A9638011AA2DD1A008C3855 /* IBMBluemix.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A9637F91AA2D95A008C3855 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A9638001AA2DD1A008C3855 /* IBMBluemix.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4ABF43631AA17921009C94FC = {
 			isa = PBXGroup;
 			children = (
@@ -79,9 +92,11 @@
 			children = (
 				4ABF43711AA17921009C94FC /* AppDelegate.swift */,
 				4ABF43911AA1796A009C94FC /* StartViewController.swift */,
+				4ABF43C41AA1D884009C94FC /* MainViewController.swift */,
 				4ABF43751AA17921009C94FC /* Main.storyboard */,
 				4ABF43781AA17921009C94FC /* Images.xcassets */,
 				4ABF437A1AA17921009C94FC /* LaunchScreen.xib */,
+				4A9637F91AA2D95A008C3855 /* Frameworks */,
 				4ABF436F1AA17921009C94FC /* Supporting Files */,
 			);
 			path = YTGuide;
@@ -212,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ABF43C51AA1D884009C94FC /* MainViewController.swift in Sources */,
 				4ABF43721AA17921009C94FC /* AppDelegate.swift in Sources */,
 				4ABF43921AA1796A009C94FC /* StartViewController.swift in Sources */,
 			);
@@ -338,9 +354,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YTGuide",
+				);
 				INFOPLIST_FILE = YTGuide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -348,8 +374,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YTGuide",
+				);
 				INFOPLIST_FILE = YTGuide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lsqlite3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -407,6 +442,7 @@
 				4ABF438D1AA17921009C94FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4ABF438E1AA17921009C94FC /* Build configuration list for PBXNativeTarget "YTGuideTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +451,7 @@
 				4ABF43901AA17921009C94FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

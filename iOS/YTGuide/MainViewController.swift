@@ -12,6 +12,10 @@ class MainViewController: UIViewController {
 	
 	var accessToken: String!
 	var watchHistoryID: String!
+	var watchLaterID: String!
+	var favoritesID: String!
+	var likesID: String!
+	var watsonInput: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,44 +23,60 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
 		let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 		self.accessToken = appDelegate.accessToken
-		self.requestWatchHistoryID()
+		self.requestPlaylistIDs()
     }
 	
-	func requestWatchHistoryID() {
+	func requestPlaylistIDs() {
 		let url = NSURL(string: "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true&access_token=\(self.accessToken)")
-		var request = NSMutableURLRequest(URL: url!)
-		//request.addValue(self.accessToken, forHTTPHeaderField: "Authorization: Bearer")
+		let request = NSURLRequest(URL: url!)
 		let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
 		let task = session.dataTaskWithRequest(request, completionHandler: { data, response, error in
-			// Extract watch history playlist ID
-			var error: NSError?
-			let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: &error) as NSDictionary
+			// Extract playlist IDs
+			let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: nil) as NSDictionary
 			let itemsArray = jsonDict.objectForKey("items") as NSArray
 			let itemsDict = itemsArray[0] as NSDictionary
 			let contentsDict = itemsDict.objectForKey("contentDetails") as NSDictionary
 			let playlistsDict = contentsDict.objectForKey("relatedPlaylists") as NSDictionary
+			
 			self.watchHistoryID = playlistsDict.objectForKey("watchHistory") as String!
-			self.requestWatchHistory()
-		})
-		task.resume()
-	}
-	
-	func requestWatchHistory() {
-		let url = NSURL(string: "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=\(self.watchHistoryID)&maxResults=50&access_token=\(self.accessToken)")
-		var request = NSURLRequest(URL: url!)
-		let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-		let task = session.dataTaskWithRequest(request, completionHandler: { data, response, error in
-			println(NSString(data: data, encoding: NSUTF8StringEncoding)!)
-			// UIWebView must be called from main thread
-			dispatch_async(dispatch_get_main_queue(), {
+			self.watchLaterID = playlistsDict.objectForKey("watchLater") as String!
+			self.favoritesID = playlistsDict.objectForKey("favorites") as String!
+			self.likesID = playlistsDict.objectForKey("likes") as String!
+			
+			// Get playlist details without race condition
+			dispatch_sync(dispatch_queue_create("net.gofake1.YTGuide.queue", nil), {
+				self.requestPlaylistsWithID(self.watchHistoryID)
+				self.requestPlaylistsWithID(self.watchLaterID)
+				self.requestPlaylistsWithID(self.favoritesID)
+				self.requestPlaylistsWithID(self.likesID)
+			})
+			// Update UI afterwards
+			dispatch_sync(dispatch_get_main_queue(), {
 				self.recommendVideo()
 			})
 		})
 		task.resume()
 	}
 	
+	func requestPlaylistsWithID(id: String) {
+		var url = NSURL(string: "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=\(id)&maxResults=50&access_token=\(self.accessToken)")
+		var request = NSURLRequest(URL: url!)
+		let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+		var task = session.dataTaskWithRequest(request, completionHandler: { data, response, error in
+			let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers, error: nil) as NSDictionary
+			let itemsArray = jsonDict.objectForKey("items") as NSArray
+			for itemDict in itemsArray {
+				let snippetDict = itemDict.objectForKey("snippet") as NSDictionary
+				let itemDescription = snippetDict.objectForKey("description") as String!
+				self.watsonInput += itemDescription
+			}
+		})
+		task.resume()
+	}
+	
 	func recommendVideo() {
-		// Bluemix
+		// Send user data to Bluemix and expect response
+		
 		self.displayVideoFromURL("n8Wq9Z5Ktc0")
 	}
 	
