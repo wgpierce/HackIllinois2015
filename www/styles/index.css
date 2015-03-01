@@ -1,0 +1,36 @@
+body * {
+    font-family: "Open Sans";
+}
+
+.main-logo img {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    left: 50%;
+    margin-left: -250px;
+    top: 0px;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.main-button button {
+    width: 500px;
+    height: 70px;
+    position: relative;
+    left: 50%;
+    margin-left: -250px;
+    top: 40px;
+    font-size: 1.4em;
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        background: url("../images/alternate2.jpg") fixed no-repeat;
+        background-size: 100% 100%;
+    }
+}
+@media screen and (max-width: 768px) {
+    body {
+        background: url("images/background.jpg") no-repeat;
+        background-size: 2164px 150%;
+    }
+}
