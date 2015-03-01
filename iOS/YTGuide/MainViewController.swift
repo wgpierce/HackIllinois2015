@@ -47,9 +47,24 @@ class MainViewController: UIViewController {
 		let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
 		let task = session.dataTaskWithRequest(request, completionHandler: { data, response, error in
 			println(NSString(data: data, encoding: NSUTF8StringEncoding)!)
-			
+			// UIWebView must be called from main thread
+			dispatch_async(dispatch_get_main_queue(), {
+				self.recommendVideo()
+			})
 		})
 		task.resume()
+	}
+	
+	func recommendVideo() {
+		// Bluemix
+		self.displayVideoFromURL("n8Wq9Z5Ktc0")
+	}
+	
+	func displayVideoFromURL(id: String) {
+		let webView = UIWebView(frame: CGRectMake(0, 22, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+		let embedHTML = "<html><head><style type=\"text/css\"> iframe {position:absolute; top:50%%; margin-top:-130px;} body { background-color: transparent; color: white; } </style></head> <body style=\"margin:0\"> <iframe width=\"100%%\" height=\"240px\" src=http://www.youtube.com/embed/\(id) frameborder=\"0\" allowfullscreen></iframe></body></html>"
+		webView.loadHTMLString(embedHTML, baseURL: nil)
+		self.view.addSubview(webView)
 	}
 
 }
