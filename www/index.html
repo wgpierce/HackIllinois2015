@@ -13,12 +13,58 @@
     
 </head>
 <body>
-    <div class="container-fluid main-logo">
-        <img src="images/main-logo.png" class="main-photo img-circle img-responsive" alt="WhatToWatch Logo" />
+    <div class="pre-auth">
+        <div class="container-fluid main-logo">
+            <img src="images/main-logo.png" class="main-photo img-circle img-responsive" alt="WhatToWatch Logo" />
+        </div>
+        <div class="container-fluid main-button">
+            <button class="btn btn-primary" onclick="googleApiClientReady()">Log in with your Google Account</button>
+        </div>
     </div>
-    <div class="container-fluid main-button">
-        <button class="btn btn-primary" onclick="googleApiClientReady()">Log in with your Google Account</button>
+    <div class="post-auth">
+        <button id='prevVid' class="btn btn-primary btn-prevVid" onclick="prevVid()">←</button>
+        <div id="player"></div>
+        <button id='nextVid' class="btn btn-primary btn-nextVid" onclick="nextVid()">→</button>
     </div>
+    <div class="modal"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>Please Wait while IBM's Watson finds the best videos for you.</div>
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: '',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      function onPlayerStateChange(event) {
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="auth.js"></script>
     <script type="text/javascript" src="index.js"></script>
